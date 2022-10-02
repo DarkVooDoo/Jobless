@@ -94,17 +94,18 @@ const Job:NextPage<JobProps> = ({job_id, job_name, job_contrat, job_from, job_en
 export const getServerSideProps:GetServerSideProps = async ({params, query})=>{
     const id = params?.id
     const isDevelepment = process.env.NODE_ENV === "development"
-    if(!query.type){
-        const fetchJob = await fetch(`${isDevelepment} ? ${process.env.BASE_URL}/api/job/${id} : ${process.env.PROD_BASE_URL}/api/job/${id}`)
-        if(fetchJob.status === 403) return {props: {}, redirect: {destination: "/"}}
-        const payload = await fetchJob.json()
-        return {props: {...payload}}
-    }else{
-        const fetchPoleEmploi = await fetch(`${isDevelepment} ? ${process.env.BASE_URL}/api/job/${id}?type=${query.type} : ${process.env.PROD_BASE_URL}/api/job/${id}?type=${query.type}`)
-        if(fetchPoleEmploi.status !== 200) return {props: {}, redirect: {destination: "/"}}
-        const payload = await fetchPoleEmploi.json()
-        return {props: {...payload}}
-    }
+    return {props:{}}
+    // if(!query.type){
+    //     const fetchJob = await fetch(`${isDevelepment} ? ${process.env.BASE_URL}/api/job/${id} : ${process.env.PROD_BASE_URL}/api/job/${id}`)
+    //     if(fetchJob.status === 403) return {props: {}, redirect: {destination: "/"}}
+    //     const payload = await fetchJob.json()
+    //     return {props: {...payload}}
+    // }else{
+    //     const fetchPoleEmploi = await fetch(`${isDevelepment} ? ${process.env.BASE_URL}/api/job/${id}?type=${query.type} : ${process.env.PROD_BASE_URL}/api/job/${id}?type=${query.type}`)
+    //     if(fetchPoleEmploi.status !== 200) return {props: {}, redirect: {destination: "/"}}
+    //     const payload = await fetchPoleEmploi.json()
+    //     return {props: {...payload}}
+    // }
 }
 
 export default Job
