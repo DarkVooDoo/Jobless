@@ -32,7 +32,7 @@ export const GetUserProfile = async (id: string):Promise<UserProfileTypes>=>{
 
 export const ModifyUserProfile = async ({user_id, user_name, user_lastname, user_city, user_postal, user_adresse, user_coord}:UserProfileTypes)=>{
     try{
-        await DB.query(`UPDATE Users SET user_name=$1, user_lastname=$2, user_city=$3, user_postal=$4, user_adresse=$5, user_coord=$6 WHERE user_id=$7`, [user_name, user_lastname, user_city, user_postal, user_adresse, JSON.stringify(user_coord), user_id])
+        await DB.query(`UPDATE Users SET user_name=$1, user_lastname=$2, user_city=$3, user_postal=$4, user_adresse=$5 WHERE user_id=$6`, [user_name, user_lastname, user_city, user_postal, user_adresse, user_id])
     }catch(err){
         console.log(err)
         throw("Error")
