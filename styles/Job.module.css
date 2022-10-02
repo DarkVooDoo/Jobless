@@ -1,0 +1,88 @@
+.job_title{
+    margin: var(--Mobile-Element-Bottom-Margin) 0;
+    font-size: 1.1rem;
+}
+
+.job_infos{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--Mobile-Element-Bottom-Margin);
+}
+
+.job_infos_salary{
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+}
+
+.job_infos_salary_icon{
+    height: 2rem;
+    width: 2rem;
+}
+
+.job_infos_date{
+    color: gray;
+    font-size: .9rem;
+}
+
+.job_about{
+    display: flex;
+    justify-content: space-between;
+}
+
+.job_about_box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 28vw;
+    width: 28vw;
+    background-color: white;
+    border-radius: 25px;
+    padding: 5px;
+    margin-bottom: var(--Mobile-Element-Bottom-Margin);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+.job_about_box_text{
+    text-align: center;
+}
+
+.job_about_box_icon{
+    position: relative;
+    height: 2.5rem;
+    width: 2.5rem;
+}
+
+.job_description{
+    margin-bottom: var(--Mobile-Element-Bottom-Margin);
+}
+
+.job_description li{
+    list-style-position: inside;
+}
+
+.form_submitBtn{
+    height: var(--Mobile-Input-Height);
+    width: 100%;
+    border-radius: 10px;
+    font-weight: bold;
+    background-color: var(--Primary-Color);
+    margin-bottom: var(--Mobile-Element-Bottom-Margin);
+}
+
+.form_deleteBtn{
+    color: white;
+    background-color: var(--Warning-Color);
+}
+
+.form_submitBtn_link{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}

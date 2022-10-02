@@ -1,0 +1,48 @@
+.container{
+    position: relative;
+    width: max-content;
+    margin-bottom: .4rem;
+    z-index: 100;
+}
+
+.select{
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    padding: .7rem 2.2rem .7rem .5rem;
+    background-color: var(--Silver-Color);
+    border-radius: 5px;
+}
+
+.select::after{
+    content: "";
+    position: absolute;
+    right: .4rem;
+    border-bottom: .2rem solid black;
+    border-right: .2rem solid black;
+    border-top: .2rem solid transparent;
+    border-left: .2rem solid transparent;
+    rotate: -135deg;
+    transition: all .3s linear;
+}
+
+.options{
+    position: absolute;
+    top: 2.8rem;
+    left: 0;
+    background-color: var(--Silver-Color);
+    transition: opacity .1s linear;
+}
+
+.open_options::after{
+    transform: rotate(-180deg);
+}
+
+.options_value{
+    padding: .7rem 2.2rem .7rem .5rem;
+}
+
+.options_value:hover{
+    background-color: #c8c8c8;
+}

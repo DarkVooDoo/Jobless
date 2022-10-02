@@ -1,0 +1,25 @@
+.cameras_container{
+    position: relative;
+    height: 65vh;
+    width: 100%;
+}
+
+.cameras_container_remoteUser{
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+}
+
+.cameras_container_myCamera{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 6rem;
+    width: 4rem;
+    border: 1px solid blue;
+    z-index: 10;
+}
+
+.test{
+    position: absolute;
+}

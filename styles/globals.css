@@ -1,9 +1,32 @@
-html,
-body {
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@1,400;1,700&display=swap');
+
+:root{
+  --Primary-Color: #89DAFF;
+  --Warning-Color: #D63230;
+  --Success-Color: #38D000;
+  --Silver-Color: #E2E2E2;
+  
+  --Mobile-Page-Padding: 1rem;
+  --Mobile-Element-Bottom-Margin: .7rem;
+
+  --Mobile-Input-Height: 2.5rem;
+
+  --Mobile-Footer-Height: 4rem;
+  --Mobile-Navbar-Height: 3rem;
+}
+
+* {
+  font-family: 'Ubuntu', sans-serif;
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  box-sizing: border-box;
+  font-size: .9rem;
+  line-height: 1.2rem;
+}
+
+main{
+  padding: 0 var(--Mobile-Page-Padding);
+  min-height: calc(100vh - var(--Mobile-Navbar-Height) - var(--Mobile-Footer-Height));
 }
 
 a {
@@ -11,16 +34,79 @@ a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input, textarea{
+  border: none;
+}
+
+input:focus{
+  outline: none;
+}
+
+button{
+  border: none;
+}
+
+.input{
+  position: relative;
+  width: 100%;
+  height: var(--Mobile-Input-Height);
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+.box_shadow{
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+.next_row_margin{
+  margin-bottom: var(--Mobile-Element-Bottom-Margin);
+}
+
+.button{
+  padding: .5rem;
+  background-color: var(--Primary-Color);
+  border-radius: 5px;
+}
+
+.form_input{
+  padding: 0 .5rem;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.form_label{
+  position: absolute;
+  left: 5px;
+  top: calc((2.5rem / 2) - .7rem);
+  transition: all .3s linear;
+}
+
+.form_input:focus + .form_label, .form_input:valid + .form_label{
+  top: 0;
+  font-size: .6rem;
+}
+
+.half{
+  width: 50% !important;
+}
+
+.highlight{
+  background-color: gainsboro  !important;
 }

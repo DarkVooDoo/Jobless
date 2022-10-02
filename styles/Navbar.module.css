@@ -1,0 +1,40 @@
+.navbar{
+    height: var(--Mobile-Navbar-Height);
+    background-color: var(--Primary-Color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--Mobile-Page-Padding)
+}
+
+.navbar_loadingHome{
+    width: 5ch;
+    height: 1rem;
+    border-radius: 25px;
+    animation: placeholderAnimation .5s alternate-reverse infinite linear ;
+}
+
+.navbar_right{
+    display: flex;
+    align-items: center;
+}
+
+.navbar_right_photo{
+    margin-left: .5rem;
+    height: calc(var(--Mobile-Navbar-Height) - 1rem);
+    width: calc(var(--Mobile-Navbar-Height) - 1rem);
+    border-radius: 50%;
+    animation: placeholderAnimation .5s alternate-reverse infinite linear ;
+}
+
+.navbar_right_signBtn{
+    margin-left: .5rem;
+    width: max-content;
+    height: calc(var(--Mobile-Navbar-Height) - 1rem);
+    padding: 0 .5rem;
+}
+
+@keyframes placeholderAnimation{
+    0%{background-color: rgb(175, 175, 175);}
+    100%{background-color: silver;}
+}

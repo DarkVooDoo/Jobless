@@ -1,0 +1,44 @@
+
+.full_page{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: calc(100vh - var(--Mobile-Navbar-Height) - var(--Mobile-Footer-Height));
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    height: 7rem;
+    width: 7rem;
+}
+
+.bubble{
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    background-color: gray;
+}
+
+.bubble1{
+    animation: bubbleAnimation .3s linear alternate infinite;
+}
+
+.bubble2{
+    animation: bubbleAnimation .3s linear .15s alternate infinite;
+}
+
+.bubble3{
+    animation: bubbleAnimation .3s linear .3s alternate infinite;
+}
+
+@keyframes bubbleAnimation{
+    0%{
+        transform: translateY(0);
+    }100%{
+        transform: translateY(15px);
+    }
+}

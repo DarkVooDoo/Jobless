@@ -1,0 +1,29 @@
+.container{
+    margin: var(--Mobile-Element-Bottom-Margin) 0;
+}
+
+.search{
+    margin-bottom: var(--Mobile-Element-Bottom-Margin);
+}
+
+.filters{
+    display: flex;
+    justify-content: space-between;
+    height: var(--Mobile-Input-Height);
+    margin-bottom: var(--Mobile-Element-Bottom-Margin);
+}
+
+.filters_postal{
+    width: 30%;
+}
+
+.filters_fulltime{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    gap: .5rem;
+}
+
+.filters_contrat{
+    height: var(--Mobile-Input-Height);
+}

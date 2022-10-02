@@ -1,0 +1,67 @@
+.application{
+    display: flex;
+    align-items: center;
+    width: 45%;
+    padding: .5rem;
+    border-radius: 10px;
+}
+
+.application_info{
+    width: 90%;
+}
+
+.application_info_row{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.application_info_row_icon{
+    height: 1.3rem;
+    width: 1.3rem;
+}
+
+.application_seen{
+    --Arrow-Border-Dimension: 10px;
+    position: relative;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity .5s linear;
+}
+
+.application_seen:hover::after, .application_seen:hover::before{
+    opacity: 1;
+}
+
+.application_seen::after, .application_seen::before{
+    position: absolute;
+    opacity: 0;
+    transition: opacity .5s linear;
+}
+
+.application_seen::before{
+    content: "";
+    top: 1.5rem;
+    right: 0px;
+    rotate: -45deg;
+    border-top-right-radius: 2px;
+    border-top: var(--Arrow-Border-Dimension) solid var(--Primary-Color);
+    border-right: var(--Arrow-Border-Dimension) solid var(--Primary-Color);
+    border-left: var(--Arrow-Border-Dimension) solid transparent;
+    border-bottom: var(--Arrow-Border-Dimension) solid transparent;
+}
+
+.application_seen::after{
+    content: attr(data-content);
+    top: calc(1.3rem + var(--Arrow-Border-Dimension));
+    right: -5px;
+    padding: .5rem;
+    border-radius: 5px;
+    width: 15ch;
+    background-color: var(--Primary-Color);
+}
+

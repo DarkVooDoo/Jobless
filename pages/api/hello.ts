@@ -5,9 +5,12 @@ type Data = {
   name: string
 }
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  res.status(200).json({ name: 'John Doe' })
+export default async function handler(req: NextApiRequest,res: NextApiResponse<Data>) {
+  console.log(req.headers["accept"])
+  if(req.headers["accept"] === "application/json"){
+    res.setHeader('Cache-Control', `max-age=${60*2}`)
+    res.status(200).json({ name: 'John Doe' })
+    return
+  }
+  res.status(403)
 }
