@@ -103,7 +103,8 @@ export const getServerSideProps:GetServerSideProps = async ({params, query})=>{
         const fetchPoleEmploi = await fetch(`${isDevelepment} ? ${process.env.BASE_URL}/api/job/${id}?type=${query.type} : ${process.env.PROD_BASE_URL}/api/job/${id}?type=${query.type}`)
         if(fetchPoleEmploi.status !== 200) return {props: {}, redirect: {destination: "/"}}
         const payload = await fetchPoleEmploi.json()
-        return {props: {...payload}}
+        console.log(payload)
+        return {props: {}}
     }
 }
 
