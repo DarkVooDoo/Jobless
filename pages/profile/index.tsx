@@ -97,6 +97,7 @@ export const getServerSideProps:GetServerSideProps = async ({req})=>{
         headers: [["Authorization-Token", req.cookies["Authorization-Token"] ?? ""]]
     })
     const profile = await myProfile.json()
+    console.log(profile)
     return {props: {...profile}}
 }
 

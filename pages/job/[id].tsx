@@ -99,13 +99,12 @@ export const getServerSideProps:GetServerSideProps = async ({params, query})=>{
         if(fetchJob.status === 403) return {props: {}, redirect: {destination: "/"}}
         const payload = await fetchJob.json()
         return {props: {...payload}}
-    }else{
-        const fetchPoleEmploi = await fetch(`${isDevelepment} ? ${process.env.BASE_URL}/api/job/${id}?type=${query.type} : ${process.env.PROD_BASE_URL}/api/job/${id}?type=${query.type}`)
-        if(fetchPoleEmploi.status !== 200) return {props: {}, redirect: {destination: "/"}}
-        const payload = await fetchPoleEmploi.json()
-        console.log(payload)
-        return {props: {}}
     }
+    const fetchPoleEmploi = await fetch(`${isDevelepment} ? ${process.env.BASE_URL}/api/job/${id}?type=${query.type} : ${process.env.PROD_BASE_URL}/api/job/${id}?type=${query.type}`)
+    if(fetchPoleEmploi.status !== 200) return {props: {}, redirect: {destination: "/"}}
+    const payload = await fetchPoleEmploi.json()
+    return {props: {...payload}}
+    
 }
 
 export default Job

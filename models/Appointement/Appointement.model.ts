@@ -13,8 +13,8 @@ export const CreateAppointement = async (user_id: string)=>{
     try{
         await conn.query(`BEGIN`)
         const {rows} = await conn.query(`INSERT INTO Appointement (appointement_date) VALUES(NOW()) RETURNING appointement_id`)
-        await conn.query(`INSERT INTO Candidate (candidate_user_id, candidate_appointement_id, candidate_iscreator) VALUES ($1,$2,$3)`, 
-        [user_id, rows[0].appointement_id, true])
+        await conn.query(`INSERT INTO Candidate (candidate_user_id, candidate_appointement_id) VALUES ($1,$2)`, 
+        [user_id, rows[0].appointement_id])
         await conn.query('COMMIT')
     }catch(err){
         await conn.query('ROLLBACK')
@@ -27,7 +27,7 @@ export const CreateAppointement = async (user_id: string)=>{
 
 export const GetMyAppointements = async (user_id:any)=>{
     try{
-        const {rows} = await DB.query(`SELECT candidate_iscreator, appointement_id, appointement_date FROM Appointement LEFT JOIN Candidate ON candidate_appointement_id=appointement_id WHERE candidate_user_id=$1`,[user_id])
+        const {rows} = await DB.query(`SELECT appointement_id, appointement_date FROM Appointement LEFT JOIN Candidate ON candidate_appointement_id=appointement_id WHERE candidate_user_id=$1`,[user_id])
         return rows
     }catch(err){
         console.log(err)
