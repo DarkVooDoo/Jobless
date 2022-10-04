@@ -44,7 +44,7 @@ const Job:NextPage<JobProps> = ({type, id})=>{
         if(ref){
             ref.innerHTML = data.job_description
         }
-    }, [])
+    }, [loading])
     
     if(!loading){
         const {job_id, job_name, job_contrat, job_from, job_entreprise, job_created, job_description, job_salary, job_hours, job_user_id, job_postulation, job_city, job_postal } = data
