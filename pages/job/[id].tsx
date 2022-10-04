@@ -23,7 +23,6 @@ import Notification from 'components/Notification'
 import { useQuerie } from 'utils/hooks'
 import { useRouter } from 'next/router'
 import Loading from 'components/Loading'
-
 interface JobProps {
     id: string,
     type: string
