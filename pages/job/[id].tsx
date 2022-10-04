@@ -23,6 +23,7 @@ import Notification from 'components/Notification'
 import { useQuerie } from 'utils/hooks'
 import { useRouter } from 'next/router'
 import Loading from 'components/Loading'
+
 interface JobProps {
     id: string,
     type: string
@@ -34,16 +35,20 @@ const Job:NextPage<JobProps> = ({type, id})=>{
     
     const {data, loading} = useQuerie<JobPayloadTypes>(`${type !== "Pole Emploi" ? `/api/job/${id}` : `/api/job/${id}?type=${router.query.type}`}`)
     const [user] = useContext(UserContext)
+    const [job, setJob] = useState<JobPayloadTypes>()
     const descriptionRef = useRef<HTMLDivElement>(null)
     const [isChoseCV, setIsChoseCV] = useState(false)  
+    
+    useEffect(()=>{  
+        const ref = descriptionRef.current
+        if(ref){
+            ref.innerHTML = data.job_description
+        }
+    }, [])
     
     if(!loading){
         const {job_id, job_name, job_contrat, job_from, job_entreprise, job_created, job_description, job_salary, job_hours, job_user_id, job_postulation, job_city, job_postal } = data
         const isOffertThirdParty = job_postulation 
-        const ref = descriptionRef.current
-        if(ref){
-            ref.innerHTML = job_description
-        }
         const postulerButton = isOffertThirdParty ? 
         <button className={styles.form_submitBtn}><a target="_blank" rel="noreferrer" className={styles.form_submitBtn_link} href={job_postulation}>Postuler</a></button> 
         : user?.id !== job_user_id && user?.role === "User" && <button className={styles.form_submitBtn} onClick={()=>setIsChoseCV(prev=>(!prev))}>Postuler</button>
