@@ -31,5 +31,5 @@ export type NotificationTypes = {
     isOpen: boolean;
 }
 export interface ObjectOnlyTypes {
-    [key: string]: string | number | boolean
+    [key: string]: string | number | boolean | undefined | null | any[] 
 }
