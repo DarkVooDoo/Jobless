@@ -38,7 +38,7 @@ export const GetSearchJobs = async ({contrat, search, postal, fullTime = true, p
         const poleEmploiContrat = contrat === 'Tout' ? 'CDI,CDD' : contrat
         const slicedPostal = postal.slice(0,2)
 
-        const query = `${POLE_EMPLOI_BASE_API}/search?typeContrat=${poleEmploiContrat}&origineOffre=1&motsCles=${search}&tempsPlein=${fullTime}&range=0-5&departement=${slicedPostal}&distance=0&range=0-${_page*4}`
+        const query = `${POLE_EMPLOI_BASE_API}/search?typeContrat=${poleEmploiContrat}&origineOffre=1&motsCles=${search}&tempsPlein=${fullTime}&departement=${slicedPostal}&distance=0&range=0-${_page*4}`
         const payload = await GetPoleEmploiJobs<{resultats: PoleEmploiPayloadTypes[]}>(query)
         const adaptedPayload:JobCardTypes[] = payload ? payload.resultats.map(item=>{
             const [_, job_city] = item.lieuTravail.libelle.split("-")

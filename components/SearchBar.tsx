@@ -15,7 +15,7 @@ interface SearchBarProps {
 }
 
 const SearchBar:React.FC<SearchBarProps> = ({onSearch })=>{
-    const [search, setSearch] = useState({search: "", postal: "", contrat: "Tout", fullTime: true})
+    const [search, setSearch] = useState({search: "", postal: "", contrat: "Tout", fullTime: true, page: "1"})
 
     useEffect(()=>{
         try{

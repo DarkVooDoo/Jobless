@@ -31,17 +31,13 @@ const Home: NextPage<HomeProps> = ({preferences}) => {
   const onSearch = async (search: SearchTypes)=>{
     createCookie("SearchPref", JSON.stringify({postal: search.postal, contrat: search.contrat, search: search.search}), 60*60*24*15)
     const objectToGetQuery = Object.entries(search).map(item=>`${item[0].trim()}=${item[1]}`).join("&")
-    refetch && refetch(`/api/job/search?${objectToGetQuery}`)
+    refetch(`/api/job/search?${objectToGetQuery}`)
   }
 
-  //TODO: continuer la recherche avec les preferences
   const onEndReached = async (entries:IntersectionObserverEntry[])=>{
     if(entries[0].isIntersecting && entries[0].intersectionRatio > 0.7){
       page++
       refetch(`${preferences ? `/api/job/search?${QuerySearch(preferences)}&page=${page}` : `/api/job?page=${page}`}`)
-      // const latestJobs = await fetch(`/api/job?page=${page+1}`)
-      // const jobs = await latestJobs.json()
-      // // setLatestJobs(jobs)
     }
     
   }
@@ -50,7 +46,6 @@ const Home: NextPage<HomeProps> = ({preferences}) => {
     const footer = document.querySelector("footer")
     const observer = new IntersectionObserver(onEndReached, {rootMargin: "0px", threshold: 0.9})
     footer && observer.observe(footer)
-
     return ()=>{
       footer && observer.unobserve(footer)
     }
