@@ -5,8 +5,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 const Router =async (req: NextApiRequest, res: NextApiResponse)=>{
 
-    if(req.method === "POST"){
-        
+    if(req.method === "POST"){        
         try{
             const token = req.cookies["Authorization-Token"]
             if(token){
@@ -21,7 +20,6 @@ const Router =async (req: NextApiRequest, res: NextApiResponse)=>{
         }
     }else if(req.method === "GET"){
         try{
-            console.log(process.env.NODE_ENV)
             const page = req.query.page?.toString()
             const jobs = await GetLatestJobs(parseInt(page ?? "1"))
             res.send(jobs)

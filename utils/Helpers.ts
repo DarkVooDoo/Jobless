@@ -1,5 +1,5 @@
 import { JobCardTypes } from "models/Job/Job.types"
-import { PostgresAgeTypes } from "./types"
+import { ObjectOnlyTypes, PostgresAgeTypes } from "./types"
 
 export const getCookie = (cookieName: string)=>{
     const cookies = document.cookie.split(";")
@@ -67,13 +67,13 @@ export const GetTimeDifferential = (oldDate: number):string=>{
 
 }
 
-export const ObjectHasChange = <T extends Object>(_firstObject: T, _objectToCompare: T):boolean=>{
+export const ObjectHasChange = <T extends ObjectOnlyTypes>(_firstObject: T, _objectToCompare: T):boolean=>{
     const firstObject = Object.entries(_firstObject)
     const objectToCompare:{[key: string]: string | string[]} = Object.create(_objectToCompare)
     for(let [key, firstObjectValue] of firstObject){
         const compareTo = objectToCompare[key]
         if(!firstObjectValue && compareTo) return true
-        else if(typeof compareTo === "string" && firstObjectValue && compareTo.toLowerCase() !== firstObjectValue.toLowerCase()) return true
+        else if(typeof compareTo === "string" && typeof firstObjectValue === "string" && compareTo.toLowerCase() !== firstObjectValue.toLowerCase()) return true
         else if(Array.isArray(firstObjectValue)){
             let x = 0
             for(let value of firstObjectValue){

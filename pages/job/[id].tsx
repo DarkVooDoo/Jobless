@@ -32,8 +32,8 @@ interface JobProps {
 const Job:NextPage<JobProps> = ({type, id})=>{
     const router = useRouter()
     const jobController = new JobController(id)
-    
-    const {data, loading} = useQuerie<JobPayloadTypes>(`${type !== "Pole Emploi" ? `/api/job/${id}` : `/api/job/${id}?type=${router.query.type}`}`)
+        
+    const {data, loading, error} = useQuerie<JobPayloadTypes>(`${type !== "Pole Emploi" ? `/api/job/${id}` : `/api/job/${id}?type=${router.query.type}`}`)
     const [user] = useContext(UserContext)
     const [job, setJob] = useState<JobPayloadTypes>()
     const descriptionRef = useRef<HTMLDivElement>(null)
@@ -41,12 +41,12 @@ const Job:NextPage<JobProps> = ({type, id})=>{
     
     useEffect(()=>{  
         const ref = descriptionRef.current
-        if(ref){
+        if(ref && data){
             ref.innerHTML = data.job_description
         }
     }, [loading])
     
-    if(!loading){
+    if(!loading && data){
         const {job_id, job_name, job_contrat, job_from, job_entreprise, job_created, job_description, job_salary, job_hours, job_user_id, job_postulation, job_city, job_postal } = data
         const isOffertThirdParty = job_postulation 
         const postulerButton = isOffertThirdParty ? 
@@ -103,7 +103,7 @@ const Job:NextPage<JobProps> = ({type, id})=>{
                 }
             </>
         )
-    }
+    }else if(error) return <p>Error...</p>
     return <Loading/>
         
 }

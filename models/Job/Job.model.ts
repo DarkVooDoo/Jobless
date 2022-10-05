@@ -31,21 +31,25 @@ const GetPoleEmploiJobs = async <T>(path: string):Promise<T | undefined>=>{
     return payload
 }
 
-export const GetSearchJobs = async ({contrat, search, postal, fullTime = true}:SearchTypes):Promise<JobCardTypes[]>=>{
+export const GetSearchJobs = async ({contrat, search, postal, fullTime = true, page = "1"}:SearchTypes):Promise<JobCardTypes[]>=>{
     try{
+        const _page = parseInt(page)
         const postgresJobContrat = contrat === "Tout" ? undefined : contrat
         const poleEmploiContrat = contrat === 'Tout' ? 'CDI,CDD' : contrat
         const slicedPostal = postal.slice(0,2)
 
-        const payload = await GetPoleEmploiJobs<{resultats: PoleEmploiPayloadTypes[]}>(`${POLE_EMPLOI_BASE_API}/search?typeContrat=${poleEmploiContrat}&origineOffre=1&motsCles=${search}&tempsPlein=${fullTime}&range=0-5&departement=${slicedPostal}&distance=0`)
+        const query = `${POLE_EMPLOI_BASE_API}/search?typeContrat=${poleEmploiContrat}&origineOffre=1&motsCles=${search}&tempsPlein=${fullTime}&range=0-5&departement=${slicedPostal}&distance=0&range=0-${_page*4}`
+        const payload = await GetPoleEmploiJobs<{resultats: PoleEmploiPayloadTypes[]}>(query)
         const adaptedPayload:JobCardTypes[] = payload ? payload.resultats.map(item=>{
-                const [_, job_city] = item.lieuTravail.libelle.split("-")
-                return {job_id: item.id, job_name: item.intitule, job_salary: item.salaire.libelle, job_created: item.dateCreation, job_from: "Pole Emploi", job_city, job_postal: item.lieuTravail.codePostal}
-            }) : []
+            const [_, job_city] = item.lieuTravail.libelle.split("-")
+            return {job_id: item.id, job_name: item.intitule, job_salary: item.salaire.libelle, job_created: item.dateCreation, job_from: "Pole Emploi", job_city, job_postal: item.lieuTravail.codePostal}
+        }) : []
+       
         const posgresqlStatement = [search, `${slicedPostal}%`, postgresJobContrat].filter(item=>item && item.length > 1)
         const {rows} = await DB.query<JobCardTypes>(`SELECT job_id, job_name, job_created, job_postal FROM Job 
-        WHERE job_name_vector @@ to_tsquery('French',$2) AND job_isfulltime=$1 ${postal && 'AND job_postal LIKE $3'} ${postgresJobContrat ? 'AND job_contrat=$4' : ""} ORDER BY job_created DESC LIMIT 5`, 
+        WHERE job_name_vector @@ to_tsquery('French',$2) AND job_isfulltime=$1 ${postal && 'AND job_postal LIKE $3'} ${postgresJobContrat ? 'AND job_contrat=$4' : ""} ORDER BY job_created ASC LIMIT ${_page*5}`, 
         [fullTime, ...posgresqlStatement])
+       
         const sortJobs = sortedJobs(...rows, ...adaptedPayload)
         return sortJobs
     }catch(err){

@@ -19,9 +19,10 @@ export const useAuthUser = ()=>{
 }
 
 type QuerieReturn<T> = {
-    data: T, 
+    data: T | undefined, 
     loading: boolean,
-    refetch: (path: string, options?: OptionTypes)=> void
+    error: {code: number, text: string} | undefined,
+    refetch: (path: string, options?: OptionTypes)=> Promise<void>
 }
 
 type OptionTypes = {
@@ -29,17 +30,20 @@ type OptionTypes = {
 }
 
 export const useQuerie = <T>(path: string, options?: OptionTypes):QuerieReturn<T>=>{
-    const [query, setQuery] = useState<QuerieReturn<any>>({data: undefined, loading: true, refetch: ()=>{}})
     const fetchingData = async (path: string, options?: OptionTypes)=>{
         const fetching = await fetch(`${path}`, {
             headers: options?.headers
         })
+        if(fetching.status >= 300) {
+            return setQuery({error: {code: fetching.status, text: "Error Fetching"}, loading: false, data: undefined, refetch: fetchingData}) 
+        }
         const payload = await fetching.json() as T
-        setQuery({data: payload, loading: false, refetch: fetchingData})
+        setQuery({data: payload, loading: false, error: undefined, refetch: fetchingData})
     }
+    const [query, setQuery] = useState<QuerieReturn<any>>({data: undefined, loading: true, error: undefined, refetch: fetchingData})
     useEffect(()=>{
         fetchingData(path, options)
-    },[])
+    },[path])
 
     return query
 }

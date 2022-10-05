@@ -9,7 +9,7 @@ const Router = async (req: NextApiRequest, res: NextApiResponse)=>{
         try{
             const query:any = req.query
             const jobs = await GetSearchJobs(query)
-            res.setHeader("Cache-Control", `max-age=${60*3}`)
+            // res.setHeader("Cache-Control", `max-age=${60*3}`)
             res.send(jobs)
         }catch(err){
             res.status(403).send({status: "Failed"})

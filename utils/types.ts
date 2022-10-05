@@ -4,7 +4,8 @@ export type OnInputChangeTypes = [name: string, value: string]
 export type SearchTypes = {
     search: string,
     postal: string,
-    contrat: string
+    contrat: string,
+    page: string,
     fullTime: boolean
 }
 
@@ -28,4 +29,7 @@ export type NotificationTypes = {
     message: string;
     isSuccess: boolean;
     isOpen: boolean;
+}
+export interface ObjectOnlyTypes {
+    [key: string]: string | number | boolean
 }
